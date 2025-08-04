@@ -1,11 +1,5 @@
 flask==2.3.3
 openai==1.3.8
 pinecone==3.0.0
-sentence-transformers==2.2.2
-transformers==4.35.2
-numpy==1.24.3
-scikit-learn==1.3.2
 gunicorn==21.2.0
-torch
-torchvision
-torchaudio
+requests==2.31.0
