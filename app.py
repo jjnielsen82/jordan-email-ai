@@ -5,8 +5,9 @@ import os
 
 app = Flask(__name__)
 
-# Initialize OpenAI
-openai_client = openai.OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+# Initialize OpenAI - moved inside routes to avoid startup issues
+def get_openai_client():
+    return openai.OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
 @app.route('/draft-personal-email', methods=['POST'])
 def draft_personal_email():
@@ -33,7 +34,7 @@ Draft a response that matches Jordan's communication style:
 
 Response:"""
 
-        response = openai_client.chat.completions.create(
+        response = get_openai_client().chat.completions.create(
             model="gpt-4",
             messages=[
                 {"role": "system", "content": "You are Jordan Nielsen, responding to emails in your personal, warm communication style based on years of relationship-building emails."},
@@ -84,7 +85,7 @@ Draft a response that matches the admin team's communication style:
 
 Response:"""
 
-        response = openai_client.chat.completions.create(
+        response = get_openai_client().chat.completions.create(
             model="gpt-4",
             messages=[
                 {"role": "system", "content": "You are part of an admin team, responding to emails in a professional, efficient, and service-oriented style."},
